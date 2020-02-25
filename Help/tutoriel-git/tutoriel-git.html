@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+<!-- 2019-03-04 lun. 15:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tutoriel Git et GitHub</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Lucien Cartier-Tilet" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://langue.phundrak.fr/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://langue.phundrak.fr/css/readtheorg.css"/>
+<script src="https://phundrak.fr/js/jquery.min.js"></script>
+<script src="https://phundrak.fr/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://phundrak.fr/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://phundrak.fr/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Tutoriel Git et GitHub</h1>
+<p>
+
+</p>
+<div id="table-of-contents">
+<h2>Table des matières</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org87cac80">1. Avant-propos</a></li>
+<li><a href="#orge120ef2">2. Git ? Qu’est-ce donc ?</a></li>
+<li><a href="#orgede3b11">3. Ça a l’air cool, comment ça s’obtient ?</a>
+<ul>
+<li><a href="#org13ddd7b">3.1. Et surtout, comment ça s’installe ?</a></li>
+<li><a href="#orgafb9fd1">3.2. Ok c’est bon, et il y a une configuration à faire ?</a></li>
+</ul>
+</li>
+<li><a href="#orga1b1230">4. Ok très bien, comment on l’utilise maintenant ?</a>
+<ul>
+<li><a href="#org9716307">4.1. Je commence comment ?</a></li>
+<li><a href="#org9516ccc">4.2. Et pour ajouter des fichiers ?</a></li>
+<li><a href="#org331618e">4.3. Cool, mais j’ai accidentellement mis un fichier en staging</a></li>
+<li><a href="#org7939e24">4.4. En fait, j’ai juste oublié un truc dans mon commit précédent</a></li>
+<li><a href="#org9a4f30e">4.5. Euh, j’ai oublié ce que j’ai changé lors du dernier commit</a></li>
+<li><a href="#org82ae757">4.6. Il y a des fichiers dont je me fiche dans mon dépôt</a></li>
+<li><a href="#orgcf77752">4.7. On est plusieurs dessus en fait…</a></li>
+</ul>
+</li>
+<li><a href="#orgd6e3ca9">5. J’ai entendu parler de GitHub…</a>
+<ul>
+<li><a href="#org567803c">5.1. J’ai téléchargé un projet en zip</a></li>
+<li><a href="#org364f435">5.2. Et si je veux créer mon propre dépôt sur GitHub</a></li>
+<li><a href="#orgc386736">5.3. Et du coup, comment je met tout ça en ligne ?</a></li>
+<li><a href="#orgb488b58">5.4. Quelqu’un a fait des modifications depuis mon dernier commit, je récupère ça comment ?</a></li>
+<li><a href="#orgb017de4">5.5. Je suis en train de travailler sur le même fichier que Ginette</a></li>
+<li><a href="#orgf4d641b">5.6. GitHub ne veut pas de mes pushs sur le dépôt de Gilberte, oskour !</a></li>
+<li><a href="#org60979ea">5.7. Fork ? Pull request ? Que font des fourchettes et des pulls dans ce tuto ?</a></li>
+<li><a href="#org30468eb">5.8. J’ai remarqué un bug ou une erreur, mais je ne peux pas corriger ça moi-même</a></li>
+</ul>
+</li>
+<li><a href="#org41de57a">6. Les raccourcis et paramètres de Git</a></li>
+<li><a href="#org23fb4ba">7. Et c’est tout ?</a></li>
+</ul>
+</div>
+</div>
+<p>
+
+</p>
+
+<div id="outline-container-org87cac80" class="outline-2">
+<h2 id="org87cac80"><span class="section-number-2">1</span> Avant-propos</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Car oui, j’ai quand même un fond sérieux, même si le reste du tuto ne m’aide pas à confirmer ces dires. Tout d’abord, si tu veux la version PDF du bouzin, c’est par là : <a href="https://phundrak.fr/git/tutoriel-git.pdf">https://phundrak.fr/git/tutoriel-git.pdf</a>. Et si tu lis déjà le PDF, la version web est par là : <a href="https://phundrak.fr/git">https://phundrak.fr/git</a>. Et pour le code source de cette page, c’est sur GitHub (<a href="https://github.com/Phundrak/tutoriel-git">https://github.com/Phundrak/tutoriel-git</a>) et mon Gitlab perso (<a href="https://labs.phundrak.fr/phundrak/tutoriel-git">https://labs.phundrak.fr/phundrak/tutoriel-git</a>).
+</p>
+
+<p>
+Bon, c’était court. Prêt pour le tuto ? C’est parti !
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge120ef2" class="outline-2">
+<h2 id="orge120ef2"><span class="section-number-2">2</span> Git ? Qu’est-ce donc ?</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Git est un logiciel de version de fichiers permettant de garder une trace de toutes les modifications apportées au fichiers suivis dans un répertoire (un dépôt) et ses sous-répertoires –sous couvert qu’ils n’aient pas été ignorés explicitement. Il permet également de conserver plusieurs versions parallèles du projet, comme par exemple une version stable et une version de développement, et permet l’ajout de modifications d’une de ces versions parallèles à une autre via des fusions partielles ou totales de branches, avec une automatisation des fusions de fichiers lorsqu’il n’y a pas de conflit entre ces derniers.
+</p>
+
+<p>
+Avant de continuer, sache que je suis bilingue français-sarcasme, si tu es du genre à t’énerver pour un rien, cette page est à haut risque pour toi.
+</p>
+
+<p>
+Toujours là ? Tu auras été prévenu·e.
+</p>
+</div>
+</div>
+<div id="outline-container-orgede3b11" class="outline-2">
+<h2 id="orgede3b11"><span class="section-number-2">3</span> Ça a l’air cool, comment ça s’obtient ?</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org13ddd7b" class="outline-3">
+<h3 id="org13ddd7b"><span class="section-number-3">3.1</span> Et surtout, comment ça s’installe ?</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Très bonne question Kévin. Tout d’abord, il faut t’assurer que git soit installé sur ton système et utilisable depuis le terminal. Sous GNU/Linux, tu peux l’installer via ton gestionnaire de paquet, ce qui rendra la commande accessible directement depuis le terminal.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ apt install git                    # Debian, Ubuntu et les distros bas&#233;es dessus
+$ yum install git                    # CentOS
+$ dnf -y install git                 # Fedora
+$ pacman -S git                      # ArchLinux et les distros bas&#233;es dessus
+$ emerge --ask --verbose dec-vcs/git # Gentoo
+</pre>
+</div>
+
+<div id="org347e458" class="figure">
+  <p>
+    <img src="https://cdn.phundrak.fr/img/install_gentoo.jpg" alt="install_gentoo.jpg" style="display: block; margin: auto;" />
+  </p>
+  <p>
+    <span class="figure-number">Figure&nbsp;1&nbsp;: </span>&gt;install gentoo
+  </p>
+</div>
+
+<p>
+Si tu n’es pas sous GNU/Linux mais que tu as au moins le goût d’être sous un OS de type Unix, tu peux exécuter la commande correspondante à ton OS suivant :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ pkg install git                                     # FreeBSD
+$ brew install git                                    # macOS avec brew
+$ port install git +svn +doc +bash_completion +gitweb # macOS avec MacPorts
+</pre>
+</div>
+<p>
+Si tu es sous Windows&#x2026; Bonne chance. Toutes les commandes seront en syntaxe Unix dans ce tutoriel, mais si tu as bien deux neurones, tu devrais pouvoir tout de même suivre le tutoriel.
+</p>
+</div>
+</div>
+<div id="outline-container-orgafb9fd1" class="outline-3">
+<h3 id="orgafb9fd1"><span class="section-number-3">3.2</span> Ok c’est bon, et il y a une configuration à faire ?</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Tu peux configurer Git si tu le souhaites, oui. En général, il est recommandé de paramétrer au moins son nom et son email. Tu peux les paramétrer via la ligne de commande :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git config --global user.name "Ton Nom"
+$ git config --global user.email "ton@email.truc"
+</pre>
+</div>
+<p>
+Tu peux aussi éditer le fichier <code>~/.gitconfig</code> comme suit :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">[user]
+     email = ton@email.truc
+     name = Ton nom
+</pre>
+</div>
+<p>
+Cela permettra d’associer ton nom et ton adresse mail à tes commits. Par défaut, ceux qui sont enregistrés avec ton compte utilisateur de ton PC sont mis par défaut dans ces paramètres, mais on met quasiment tous un nom à la con quand on le créé. Et ça permet d’avoir les même paramètres si tu es sur un autre ordinateur.
+</p>
+
+<p>
+Il y a encore pas mal de paramètres que tu peux gérer avec ce fichier, je reparlerai de certains plus tard, mais pour le reste, la documentation en ligne sur <code>gitconfig</code> ne manque pas.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga1b1230" class="outline-2">
+<h2 id="orga1b1230"><span class="section-number-2">4</span> Ok très bien, comment on l’utilise maintenant ?</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Du calme Jean-Kévin, ralentis un peu. Comme le dit ce vieux dicton Chinois :
+</p>
+<blockquote>
+<p>
+Celui qui marche trop vite…… marche…………… trop… vite…? Tu peux tomber et te faire mal je suppose.
+</p>
+</blockquote>
+<p>
+Bon, c’est une contrefaçon, donc la qualité de la citation n’est pas extraordinaire. Bref.
+</p>
+</div>
+<div id="outline-container-org9716307" class="outline-3">
+<h3 id="org9716307"><span class="section-number-3">4.1</span> Je commence comment ?</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Si tu souhaites créer un dépôt git, rien de plus simple : créé ton répertoire dans lequel tu travailleras, et déplace-y-toi. Ensuite, tu pourra initialiser ton dépôt via la commande <code>git init</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ mkdir monsuperprojet
+$ cd monsuperprojet
+$ git init
+Initialized empty Git repository in /tmp/monsuperprojet/.git/
+</pre>
+</div>
+<p>
+Si tu obtiens à peu près le même message après la dernière commande, félicitations ! Tu viens de créer ton premier dépôt git. En l’occurrence, j’ai créé mon dépôt dans <code>/tmp</code>, mais toi tu peux voir un truc du genre <code>/home/corentin/monsuperprojet</code> à la place. Tu peux vérifier que tout va bien en rentrant la commande <code>git status</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+</pre>
+</div>
+<p>
+Parfait !
+</p>
+</div>
+</div>
+<div id="outline-container-org9516ccc" class="outline-3">
+<h3 id="org9516ccc"><span class="section-number-3">4.2</span> Et pour ajouter des fichiers ?</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Maintenant tu peux commencer à travailler sur ton projet. Mais tout d’abord, on va voir ce qu’il se passe si jamais on créé un fichier dans le dépôt. Créé un fichier <code>main.c</code> dans lequel tu vas entrer ce code :
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #9BAEAC;">#include</span> <span style="color: #d0dbda;">&lt;</span><span style="color: #6E8F98;">stdio.h</span><span style="color: #d0dbda;">&gt;</span>
+<span style="color: #9BAEAC;">int</span> <span style="color: #9FC1C2;">main</span><span style="color: #d0dbda;">(</span><span style="color: #9BAEAC;">int</span> <span style="color: #6E8F98;">argc</span>, <span style="color: #9BAEAC;">char</span> *<span style="color: #6E8F98;">argv</span><span style="color: #69959F;">[]</span><span style="color: #d0dbda;">)</span> <span style="color: #d0dbda;">{</span>
+  printf<span style="color: #69959F;">(</span><span style="color: #6E8F98;">"Hello World!\n"</span><span style="color: #69959F;">)</span>;
+  <span style="color: #91ADAF; font-weight: bold;">return</span> <span style="color: #69959F;">0</span>;
+<span style="color: #d0dbda;">}</span>
+</pre>
+</div>
+<p>
+En exécutant à nouveau <code>git status</code>, on peut voir la sortie suivante :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+        main.c
+
+nothing added to commit but untracked files present (use "git add" to track)
+</pre>
+</div>
+<p>
+Tu commences à comprendre un peu le bail ? Git vient de détecter qu’un nouveau fichier a été créé qu’il ne connaissait pas avant. Suivons ses bon conseils et ajoutons le fichier au dépôt.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git add main.c
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+        new file:   main.c
+</pre>
+</div>
+<p>
+Super, maintenant git va surveiller les changements du fichier, mais attention, il n’a pas encore enregistré son état. Pour l’instant il sait juste que le fichier est là, dans un certain état, mais rien ne garanti encore qu’on pourra retrouver cet état plus tard. On appelle ça le <i>staging</i>. Pour ce faire, il faut créer ce qu’on appelle un commit. En gros, il s’agit d’un enregistrement des modifications apportées à un ou plusieurs fichiers (dans leur globalité ou partiellement, on verra ça plus tard), le tout avec un commentaire.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git commit -m "Un petit pas pour moi, un grand pas pour mon projet"
+[master (root-commit) 89139ef] Un petit pas pour moi, un grand pas pour mon projet
+ 1 file changed, 6 insertions(+)
+ create mode 100644 main.c
+</pre>
+</div>
+<p>
+Parfait ! Certains éléments peuvent être un peu différent chez toi, comme par exemple la référence du commit juste avant le message. Ça, c’est un truc qui est géré automatiquement par git. Et voilà, on a l’état de notre répertoire qui est enregistré et qui sera disponible plus tard. Maintenant, tu sais comment enregistrer des état de ton dépôt via les commits.
+</p>
+</div>
+</div>
+<div id="outline-container-org331618e" class="outline-3">
+<h3 id="org331618e"><span class="section-number-3">4.3</span> Cool, mais j’ai accidentellement mis un fichier en staging</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Si jamais tu as un staging que tu veux annuler, tu peux utiliser la commande <code>git reset HEAD nomdufichier</code> (ou plusieurs noms de fichiers) pour annuler le staging. Une fois le fichier qui n’est plus dans ton staging, tu peux même annuler toutes les modifications que tu as apporté au fichier depuis ton dernier commit avec la commande <code>git checkout -- nomdufichier</code>, et tu peux aussi mettre plusieurs noms de fichiers. Par exemple, si j’ai modifié mon <code>main.c</code> en modifiant ainsi les arguments du <code>main()</code> :
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #9BAEAC;">#include</span> <span style="color: #d0dbda;">&lt;</span><span style="color: #6E8F98;">stdio.h</span><span style="color: #d0dbda;">&gt;</span>
+<span style="color: #9BAEAC;">int</span> <span style="color: #9FC1C2;">main</span><span style="color: #d0dbda;">(</span><span style="color: #9BAEAC;">void</span><span style="color: #d0dbda;">)</span> <span style="color: #d0dbda;">{</span>
+  printf<span style="color: #69959F;">(</span><span style="color: #6E8F98;">"Hello World!\n"</span><span style="color: #69959F;">)</span>;
+  <span style="color: #91ADAF; font-weight: bold;">return</span> <span style="color: #69959F;">0</span>;
+<span style="color: #d0dbda;">}</span>
+</pre>
+</div>
+<p>
+Je peux annuler tout ça via ces commandes :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git reset HEAD main.c
+Unstaged changes after reset:
+M       main.c
+$ git checkout -- main.c
+$ git status
+On branch master
+nothing to commit, working tree clean
+</pre>
+</div>
+<p>
+Si je fait un <code>cat</code> du fichier, je vois qu’il est revenu à son état initial.
+</p>
+</div>
+</div>
+<div id="outline-container-org7939e24" class="outline-3">
+<h3 id="org7939e24"><span class="section-number-3">4.4</span> En fait, j’ai juste oublié un truc dans mon commit précédent</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Si jamais tu veux à la place ajouter la modification d’un fichier au dernier commit (mettons, tu as oublié d’ajouter également un fichier texte), tu peux utiliser l’option <code>--amend</code> lors du commit du fichier oublié.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git add main.c # J&#8217;ai refait les modifications annul&#233;es plus t&#244;t
+$ git commit -m "second commit"
+[master 97f698a] second commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ echo "C&#8217;est un super projet !" &gt; projet.txt
+$ git add projet.txt
+$ git commit --amend -m "second commit + oubli"
+[master 9aff4c0] second commit + oubli
+ Date: Fri Oct 5 11:10:56 2018 +0200
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+ create mode 100644 projet.txt
+</pre>
+</div>
+<p>
+En gros, le commit que tu viens de faire a remplacé le précédent en conservant les informations du commit précédent, mis à part son commentaire. Si tu ne met pas l’option <code>-m "ton texte"</code> lors de l’amendement du commit, ton éditeur texte par défaut va s’ouvrir pour que tu puisses modifier le texte du commit précédent si tu le souhaite. Si jamais vi ou vim s’ouvre et que tu n’as aucune idée de comment sortir de cet enfant du démon, tu as juste à appuyer sur la touche Échap (au cas où), puis à taper <code>:wq</code> (<code>w</code> pour écrire le fichier, <code>q</code> pour quitter), puis tu appuye sur la touche Entrée. Si tu as Nano qui s’est ouvert, alors il faut taper Ctrl-X.
+</p>
+</div>
+</div>
+<div id="outline-container-org9a4f30e" class="outline-3">
+<h3 id="org9a4f30e"><span class="section-number-3">4.5</span> Euh, j’ai oublié ce que j’ai changé lors du dernier commit</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Pas de panique ! Tu peux entrer la commande <code>git diff</code> afin de voir ce que tout ce que tu as modifié lors de ton dernier commit. Et si tu ne souhaite voir les modifications que d’un certain fichier, tu peux ajouter le nom de ton fichier à la fin de la commande.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ echo "C&#8217;est un super projet !" &gt; projet.txt
+$ git diff
+diff --git a/projet.txt b/projet.txt
+index 03b0f20..b93413f 100644
+--- a/projet.txt
++++ b/projet.txt
+@@ -1 +1 @@
+-projet
++C&#8217;est un super projet !
+</pre>
+</div>
+<p>
+Tu peux également voir les différences de fichiers entre deux commits en entrant leur référence. Pour avoir la référence, tu peux rentrer la commande <code>git log</code> pour avoir un petit historique des commits.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git log
+commit 4380d8717261644b81a1858920406645cf409028 (HEAD -&gt; master)
+Author: Phuntsok Drak-pa <a href="mailto:phundrak%40phundrak.fr">&lt;phundrak@phundrak.fr&gt;</a>
+Date:   Fri Oct 5 11:59:40 2018 +0200
+
+    new commit
+
+commit 59c21c6aa7e3ec7edd229f81b87becbc7ec13596
+Author: Phuntsok Drak-pa <a href="mailto:phundrak%40phundrak.fr">&lt;phundrak@phundrak.fr&gt;</a>
+Date:   Fri Oct 5 11:10:56 2018 +0200
+
+    nouveau texte
+
+commit 89139ef233d07a64d3025de47f8b6e8ce7470318
+Author: Phuntsok Drak-pa <a href="mailto:phundrak%40phundrak.fr">&lt;phundrak@phundrak.fr&gt;</a>
+Date:   Fri Oct 5 10:56:58 2018 +0200
+
+    Un petit pas pour moi, un grand pas pour mon projet
+</pre>
+</div>
+<p>
+Bon, c’est un peu long et un peu trop d’infos d’un coup, généralement je préfère taper <code>git log --oneline --graph --decorate</code> afin d’avoir un affichage comme suit :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git log --oneline --graph --decorate
+* 4380d87 (HEAD -&gt; master) new commit
+* 59c21c6 nouveau texte
+* 89139ef Un petit pas pour moi, un grand pas pour mon projet
+</pre>
+</div>
+<p>
+Plus propre, non ? Et les références sont plus courtes, ce qui est plus agréable à taper. Allez, comparons les deux derniers commits.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git add .
+$ git commit -m "new commit"
+$ git log --oneline --graph --decorate
+* 4380d87 (HEAD -&gt; master) new commit
+* 59c21c6 nouveau texte
+* 89139ef Un petit pas pour moi, un grand pas pour mon projet
+$ git diff 59c21c6 4380d87
+diff --git a/projet.txt b/projet.txt
+index 03b0f20..b93413f 100644
+--- a/projet.txt
++++ b/projet.txt
+@@ -1 +1 @@
+-projet
++C&#8217;est un super projet !
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org82ae757" class="outline-3">
+<h3 id="org82ae757"><span class="section-number-3">4.6</span> Il y a des fichiers dont je me fiche dans mon dépôt</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+Dans ce cas, il est grand temps de te présenter le fichier <code>.gitignore</code>. Comme son nom l’indique, il permet au dépôt d’ignorer des fichiers selon ce que tu lui indiqueras. Par exemple, si tu veux ignorer tous les fichiers qui se terminent en <code>.out</code> (ou <code>.exe</code> sous Windows), tu peux éditer (ou créer) ton <code>.gitignore</code> et entrer ces lignes :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">*.out
+*.exe
+</pre>
+</div>
+<p>
+Maintenant, si tu créés un fichier en <code>.out</code> ou <code>.exe</code>, il sera complètement ignoré par git et ne sera pas stocké dans l’historique des versions.
+</p>
+</div>
+</div>
+<div id="outline-container-orgcf77752" class="outline-3">
+<h3 id="orgcf77752"><span class="section-number-3">4.7</span> On est plusieurs dessus en fait…</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+Pas de panique ! Git dispose d’une fonctionnalité de brachange permettant d’avoir plusieurs versions coexistantes d’un même fichier. Cela peut être très utile pour avoir soit plusieurs personnes travaillant sur un même projet, soit pour une même personne travaillant sur plusieurs fonctionnalités différentes, soit les deux. Ainsi, on a plusieurs version idépendantes que l’on pourra fusionner plus tard.
+</p>
+
+<p>
+Par défaut une brache est créée lors de la création d’un dépôt qui s’appelle <code>master</code>. Pour créer une nouvelle branche, on peut donc utiliser la commande <code>git checkout -b nomdelanouvellebranche</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git checkout -b nouvelle-branche
+Switched to a new branch 'nouvelle-branche'
+</pre>
+</div>
+<p>
+À partir d’ici, toute modification apportée aux fichiers du dépôt n’affecteront que la brache courante, <code>nouvelle-branche</code> donc, et les fichiers de la brache <code>master</code> resteront inchangés. Si jamais tu veux retourner pour une quelconque raison sur la branche <code>master</code>, il te suffira d’utiliser la commande <code>git checkout master</code>.
+</p>
+
+<p>
+Si tu souhaites avoir une liste des braches du dépôt, tu peux taper <code>git branch --list</code>. La branche active sera marquée d’une étoile à côté de son nom.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git branch --list
+  master
+* nouvelle-branche
+</pre>
+</div>
+<p>
+Au bout d’un moment, tu vas sans doute vouloir fusionner deux braches, par exemple tu as finis de développer une nouvelle fonctionnalité sur la branche <code>nouvelle-branche</code> et tu souhaites l’ajouter à la version stable de ton code qui se situe sur <code>master</code>. Dans ce cas, ce que tu peux faire, c’est retourner sur ta branche <code>master</code>, puis tu vas effectuer ce qu’on appelle un <i>merge</i> ; en gros, pour faire simple, tu vas appliquer les modifications de la branche que tu souhaites fusionner avec ta branche <code>master</code> sur cette dernière.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git checkout master
+Switched to branch 'master'
+$ git merge nouvelle-branche
+Updating 133c5b6..2668937
+Fast-forward
+ projet.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 projet.txt
+</pre>
+</div>
+<p>
+Rappelle-toi que la commande <code>merge</code> ramène les commits de la branche spécifiée vers ta branche active, et pas forcément vers le <code>master</code>. Du coup, si tu est sur une brache <code>gisianne</code> et que tu effectues un <code>git merge roger</code>, tu vas rammener tous les commits de <code>roger</code> vers la branche <code>gisianne</code>. Ce peut être intéressant à faire si jamais un bug a été corrigé dans une autre branche ou qu’une fonctionnalité a été ajoutée et que tu veux en bénéficier dans ta branche active. N’oublie juste pas de tout bien commit avant de faire ton <i>merge</i>.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd6e3ca9" class="outline-2">
+<h2 id="orgd6e3ca9"><span class="section-number-2">5</span> J’ai entendu parler de GitHub…</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Tu commences à me plaire Enzo ! GitHub est un site web sur lequel tu peux héberger des projets libres ou open-source (si tu ne connais pas la différence, voici <a href="https://www.gnu.org/philosophy/open-source-misses-the-point.fr.html">un article</a> pour t’aider à comprendre, et <a href="https://www.gnu.org/philosophy/free-software-for-freedom.fr.html">un autre</a> pour la route). C’est en particulier orienté pour les projets gérés par git, ce qui tombe bien car c’est ce qu’on utilise. Cela a pour avantage de pouvoir aisément partager ton code et d’assurer qu’il est bien sauvegardé quelque part d’autre que ton disque dur (un <code>rm -rf</code> est si vite arrivé). Et surtout, ça peut te permettre de collaborer avec d’autres personnes sur le même projet sans te casser la tête.
+</p>
+</div>
+<div id="outline-container-org567803c" class="outline-3">
+<h3 id="org567803c"><span class="section-number-3">5.1</span> J’ai téléchargé un projet en zip</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Ou bien, tu peux télécharger le projet directement via <code>git</code>. Eh oui ! git permet de gérer les dépôts dits distants, c’est à dire ceux qui sont hébergés sur un serveur en ligne, comme par exemple sur GitHub. Pour cela, il te faut te munir du lien vers le dépôt git, et le passer en argument de <code>git clone</code>. Par exemple, si tu veux télécharger de dépôt du petit logiciel de chat en réseau que j’ai codé durant ma L2 d’informatique, tu peux exécuter ceci :
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$  git clone https://github.com/Phundrak/chat-reseau-P8.git
+Cloning into 'chat-reseau-P8'...
+remote: Enumerating objects: 345, done.
+remote: Total 345 (delta 0), reused 0 (delta 0), pack-reused 345
+Receiving objects: 100% (345/345), 63.91 KiB | 39.00 KiB/s, done.
+Resolving deltas: 100% (107/107), done.
+</pre>
+</div>
+<p>
+Et c’est bon, tu as accès au répertoire <code>chat-reseau-P8</code> et au code source du projet.
+</p>
+</div>
+</div>
+<div id="outline-container-org364f435" class="outline-3">
+<h3 id="org364f435"><span class="section-number-3">5.2</span> Et si je veux créer mon propre dépôt sur GitHub</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Dans ce cas là, c’est simple Brigitte. Il faut que tu te créés un compte sur GitHub, puis tu cliques sur le bouton <code>+</code> et <code>New Repository</code>. Tu lui donnes le nom que tu souhaites (en l’occurrence je le nomme <code>temporary-repo</code> car je vais le supprimer cinq minutes après l’écriture de ces lignes), et tu cliques sur <code>Create Repository</code>. Tu n’ajoutes rien avant, pas de description, pas de <code>.gitignore</code>, RIEN.
+</p>
+
+<p>
+Et là, magie ! GitHub indique comment ajouter le dépôt distant à ton dépôt local.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git remote add origin https://github.com/Phundrak/temporary-repo.git
+</pre>
+</div>
+<p>
+Et voilà, ton dépôt est lié au dépôt distant. Oui, juste comme ça.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc386736" class="outline-3">
+<h3 id="orgc386736"><span class="section-number-3">5.3</span> Et du coup, comment je met tout ça en ligne ?</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Bon ok, ce n’est pas aussi simple que ça. Une fois que tu as lié ton dépôt au dépôt distant, il faudra que tu mettes en ligne tes commits quand tu en auras l’occasion. Pour ce faire, tu n’as qu’à taper <code>git push</code> ; et la première fois, il faudra que tu indiques à ton dépôt où mettre en ligne précisément dans le dépôt distant, auquel cas tu ajoutes <code>-u origin master</code> pour cette première fois. Git te demandera donc tes identifiants GitHub pour pouvoir mettre tout ça en ligne.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git push -u origin master
+Username for 'https://github.com': phundrak
+Password for 'https://phundrak@github.com':
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (10/10), 940 bytes | 313.00 KiB/s, done.
+Total 10 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/Phundrak/temporary-repo/pull/new/master
+remote:
+To https://github.com/Phundrak/temporary-repo.git
+ * [new branch]      master -&gt; master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+</pre>
+</div>
+<p>
+Bon, là en nom d’utilisateur y’a le mien, faudra remplacer avec le tiens. Et ouais, ma vitesse de mise en ligne n’est pas fameuse, je suis sur une connexion 3G+ à l’heure où j’écris ces lignes, ne me juge pas. Bref, toujours est-il que je viens de mettre en ligne les fichiers du dépôt sur GitHub. Pas la peine de chercher le mien sur GitHub par contre, ça fera un bail que je l’aurai supprimé au moment où tu liras ces lignes.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb488b58" class="outline-3">
+<h3 id="orgb488b58"><span class="section-number-3">5.4</span> Quelqu’un a fait des modifications depuis mon dernier commit, je récupère ça comment ?</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Pour faire un exemple, je viens de créer un <code>README.md</code> sur GitHub directement. Ce type de fichiers est assez standard afin de présenter plus ou moins en détails le dépôt et le projet qui y est lié, et son contenu apparaîtra formatté sur la page du dépôt sur GitHub s’il est au format <code>.md</code> (Markdown) ou <code>.org</code> (org-mode, le Markdown d’Emacs avec lequel est écrit ce tutoriel). Mais il n’est pas présent dans mon dépôt local, du coup je vais devoir le récupérer. On va donc entrer <code>git pull</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">$ git pull
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/Phundrak/temporary-repo
+   4380d87..8bd4896  master     -&gt; origin/master
+Updating 4380d87..8bd4896
+Fast-forward
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb017de4" class="outline-3">
+<h3 id="orgb017de4"><span class="section-number-3">5.5</span> Je suis en train de travailler sur le même fichier que Ginette</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+Là, c’est un problème qui aurait pu être évité avec l’usage des branches dont je t’avais parlé plus haut, mais visiblement, vous êtes sur la même branche. Pas bien. Dans ce cas-là, met-toi d’accord avec Ginette pour savoir qui fait ses push en premier. Si le choix tombe sur Ginette, ou si elle a imposé sa vision des choses et a fait son push avant toi, GitHub va râler car tu n’es pas à jour. Dans ce cas ne panique pas, si tu n’as pas fait tes commits, lance la commande <code>git stash</code> ; ça va sauvegarder tes modifications dans un coin à part et va annuler tes modifications. Va sur <i>ta</i> branche sur laquelle Ginette n’est pas en train de travailler, voire créé-en une nouvelle avec <code>git checkout -b tanouvellebranche</code>, et exécute <code>git stash pop</code> pour rétablir tes modifications sur cette branche.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf4d641b" class="outline-3">
+<h3 id="orgf4d641b"><span class="section-number-3">5.6</span> GitHub ne veut pas de mes pushs sur le dépôt de Gilberte, oskour !</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+Du calme Jean-Célestin. Cela veut tout simplement dire que tu n’as tout simplement pas les droits d’écriture sur son dépôt. Du coup, soit tu peux lui demander directement à ce qu’elle te donne les droits d’écriture si elle a confiance en toi, soit tu peux créer un fork puis une pull-request sur GitHub depuis ton fork où tu auras fait tes modifications.
+</p>
+</div>
+</div>
+<div id="outline-container-org60979ea" class="outline-3">
+<h3 id="org60979ea"><span class="section-number-3">5.7</span> Fork ? Pull request ? Que font des fourchettes et des pulls dans ce tuto ?</h3>
+<div class="outline-text-3" id="text-5-7">
+<p>
+Ouhlà Billy, il va falloir remettre les choses au clair. Là il s’agit de quelque chose de spécifique à GitHub qu’à Git (d’où le fait qu’on en discute dans ce chapitre que le précédent).
+</p>
+
+<p>
+Sur GitHub, il est possible de copier vers ton profil le dépôt de quelqu’un d’autre dans l’état où il est au moment du fork. Cela inclus les fichiers du <code>master</code>, mais également de toutes les branches du dépôt. Tu peux y penser en terme de super-branche dont tu deviens le propriétaire. Tu peux ainsi travailler comme bon te semble sur le code source sans que son propriétaire ne vienne t’engueuler car tu es en train de polluer sa base de code.
+</p>
+
+<p>
+Si jamais il y a une modification dont tu es particulièrement fier, tu peux la soumettre au propriétaire du dépôt original (et à ses modérateurs et contributeurs s’il y en a) via ce qu’on appelle une pull-request. Cela signifie donc que tu demandes l’autorisation d’ajouter des commits à la base de code, et ces commits peuvent être lus et commentés par le propriétaire ou les modérateurs. Il peut y avoir une discussion entre toi et les autres personnes qui ont leur mot à dire, le code peut être temporairement refusé, auquel cas tu peux reproposer de nouveau commits sur la même pull-request jusqu’à ce que ton code soit définitivement accepté ou refusé. Dans tous les cas, cela mènera à la fermeture de ta pull-request, et tu pourras fièrement annoncer que tu as participé à un projet sur GitHub, ou bien avouer avec toute la honte du monde qu’il a été refusé.
+</p>
+</div>
+</div>
+<div id="outline-container-org30468eb" class="outline-3">
+<h3 id="org30468eb"><span class="section-number-3">5.8</span> J’ai remarqué un bug ou une erreur, mais je ne peux pas corriger ça moi-même</h3>
+<div class="outline-text-3" id="text-5-8">
+<p>
+Eh bien dans ce cas-là, ouvre une <i>issue</i> Bernadette ; <i>issue</i> qui en français veut dire <i>problème</i>. Il s’agit d’un système de GitHub te permettant de signaler quelque chose aux propriétaires du dépôt, il peut s’agir d’un bug, d’une demande de fonctionnalité ou de proposition de modification d’autres fonctionnalités. Cela peut donner lieu à des discussions menant à la compréhension du bug, ou à une amélioration de ta proposition.
+</p>
+
+<p>
+Si tu soumets un bug, avant d’ouvrir une nouvelle <i>issue</i>, assure-toi de bien savoir comment le bug se produit et peut se reproduire. Est-ce que le bug apparaît si tu utilise ou ouvre le logiciel d’une autre façon ? Est-ce que le bug apparaît ailleurs ? Est-tu sûr que le bug soit un bug ? Et si tu décides de le partager, assure-toi de partager un maximum d’information et tout ce que tu sais sur ce bug, en particulier les étapes et conditions pour le reproduire.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org41de57a" class="outline-2">
+<h2 id="org41de57a"><span class="section-number-2">6</span> Les raccourcis et paramètres de Git</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Comme j’en avais parlé plus haut, il est possible de configurer git de façon un peu plus poussée que simplement déclarer notre nom et notre adresse email dans notre <code>~/.gitconfig</code>. Il est par exemple possible de déclarer notre éditeur texte préféré, notre navigateur par défaut ou bien même des raccourcis qui pourront t’être bien utile. Ci dessous je te met une partie de mon fichier de configuration avec quelques-unes de mes préférences et pas mal de mes alias.
+</p>
+<div class="org-src-container">
+<pre class="src src-text">[core]
+  editor = vim
+  whitespace = fix,-indent-with-non-tab,trailing-space
+[web]
+  browser = chromium
+[color]
+  ui = auto
+[alias]
+  a = add --all
+  c = commit
+  cm = commit -m
+  cam = commit -am
+  co = checkout
+  cob = checkout -b
+  cl = clone
+  l = log --oneline --graph --decorate
+  ps = push
+  pl = pull
+  re = reset
+  s = status
+  staged = diff --cached
+  st = stash
+  sc = stash clear
+  sp = stash pop
+  sw = stash show
+</pre>
+</div>
+<dl class="org-dl">
+<dt><code>a</code></dt><dd>Permet d’ajouter d’un coup tout nouveau fichier d’un dépôt en préparation au commit. On peut faire la même chose avec <code>git add .</code> si on est à la racine du dépôt.</dd>
+<dt><code>c</code></dt><dd>Un raccourci pour <code>commit</code>, ça permet d’éviter quelques frappes de clavier d’écrire <code>git c</code> plutôt que <code>git commit</code></dd>
+<dt><code>cm</code></dt><dd>De même pour <code>cm</code> qui évite de devoir écrire <code>commit -m</code>. On n’a plus qu’à écrire directement le message de commit après <code>cm</code>.</dd>
+<dt><code>cam</code></dt><dd>Non, ce n’est pas un plan, c’est le même alias que <code>cm</code> mais qui en plus met automatiquement tous les fichiers modifiés ou supprimés, donc s’il n’y a pas de nouveau fichier à ajouter, même pas besoin de passer par un <code>git a</code> avant le <code>git cam "j’aime les pâtes"</code>.</dd>
+<dt><code>co</code></dt><dd>Pour aller plus vite quand on veut écrire <code>checkout</code>.</dd>
+<dt><code>cob</code></dt><dd>Et pour en plus rajouter le flag <code>-b</code> pour la création d’une nouvelle branche.</dd>
+<dt><code>cl</code></dt><dd>Pour quand tu voudras télécharger ce tutoriel en tapant <code>git cl https://github.com/Phundrak/tutoriel-git.git</code> plutôt que <code>git clone https://github.com/Phundrak/tutoriel-git.git</code>.</dd>
+<dt><code>l</code></dt><dd>Te permet d’avoir le log un peu plus sympa et compact dont j’avais parlé plus haut.</dd>
+<dt><code>ps</code></dt><dd>Pour faire un push plus rapidement.</dd>
+<dt><code>pl</code></dt><dd>Et pour télécharger les derniers commits sur le dépôt plus rapidement.</dd>
+<dt><code>re</code></dt><dd>Pour réinitialiser plus rapidement.</dd>
+<dt><code>s</code></dt><dd>Pour rapidement savoir où tu en es dans ton dépôt, savoir ce qui a été modifié, ajouté, supprimé, déplacé, tout ça&#x2026;</dd>
+<dt><code>staged</code></dt><dd>Eh oui, Git n’a pas de fonction dédiée pour lister les fichiers en staging, du coup la voilà.</dd>
+<dt><code>st</code></dt><dd>Pour sauvegarder tes modifications sur le stash plus rapidement.</dd>
+<dt><code>sc</code></dt><dd>Pour supprimer ton stash plus rapidement.</dd>
+<dt><code>sp</code></dt><dd>Pour rétablir le stash sur la branche courante plus rapidement.</dd>
+<dt><code>sw</code></dt><dd>Pour rapidement savoir ce qu’il y a sur le stash.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-org23fb4ba" class="outline-2">
+<h2 id="org23fb4ba"><span class="section-number-2">7</span> Et c’est tout ?</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+C’est déjà pas mal ! Mais non, ce n’est certainement pas tout. Cependant, ce tutoriel n’a pour but de t’apprendre que les bases de Git et de GitHub, pas de tout t’apprendre ! Si tu souhaites aller plus loin, connaitre plus de commandes (comme <code>git blame</code> ou <code>git reset</code>), ou bien connaître plus d’options, je ne peux que t’inviter à aller te documenter par toi-même sur le site de Git qui se trouve <a href="https://git-scm.com/">ici</a>, ou bien à consulter des pages de manuel dans ton terminal via <code>man git</code>, <code>man git-apply</code> ou <code>man-cherry-pick</code> (oui, il faut lier <code>git</code> et le nom de la commande par un tiret d’union).
+</p>
+
+<p>
+Si jamais tu as une question, n’hésite pas à m’envoyer un mail à <a href="mailto://phundrak@phundrak.fr">phundrak@phundrak.fr</a>. Si jamais tu trouves une erreur dans ce que je viens de dire dans ce tutoriel, ou si tu as une suggestion, c’est justement le moment de mettre en pratique ce que tu as lu un peu plus haut et d’ouvrir une <i>issue</i> sur GitHub sur <a href="https://github.com/Phundrak/tutoriel-git">le dépôt de ce tutoriel</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Auteur: Lucien Cartier-Tilet</p>
+<p class="date">Created: 2019-03-04 lun. 15:24</p>
+<p class="validation"></p>
+</div>
+</body>
+</html>
